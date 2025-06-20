@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Premkumar Pawar - Professional Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+  --primary-color: #6C63FF;         /* Vivid violet-blue */
+  --secondary-color: #1F2937;       /* Deep neutral navy */
+  --background-light: #31425d;      /* Soft light background */
+  --text-light: #1E1E1E;            /* Dark text on light bg */
+  --card-bg-light: #ffffff;         /* Pure white for cards */
+  --border-light: #dce1ea;          /* Light grey border */
+
+  --background-dark: #121212;       /* Clean dark base */
+  --text-dark: #f1f1f1;             /* Bright text on dark bg */
+  --card-color: rgba(255, 255, 255, 0.08);       /* Slightly lighter card bg */
+  --secondary-dark: #2a2a2a;        /* Dark card border or contrast */
+   --border-color: rgba(255, 255, 255, 0.15);           /* Border in dark mode */
+}
+
+
+
+
+
+
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--background-light);
+      color: var(--text-light);
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 15px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s ease, border-bottom 0.4s ease;
+    }
+    
+    .nav-logo a {
+        color: var(--secondary-color);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 22px;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .nav-links li a, #toggle-dark {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s;
+    }
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease-out;
+    }
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: var(--primary-color);
+    }
+    .nav-links li a.active::after {
+      width: 100%;
+    }
+
+    #toggle-dark {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--secondary-color), #1e3c72);
+      color: rgb(212, 238, 247);
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    header img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 6px solid rgba(116, 198, 221, 0.9);
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    header p {
+        font-size: 1.2rem;
+        font-weight: 300;
+        margin-bottom: 10px;
+    }
+    header h3 { font-size: 1.5rem; margin: 10px 0 25px; min-height: 2.2rem; }
+
+    .cursor {
+      display: inline-block;
+      animation: blink 1s infinite;
+      color: var(--primary-color);
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .social-icons a {
+      color: rgb(146, 144, 217);
+      font-size: 75px;
+      margin: 0 12px;
+      transition: transform 0.3s, color 0.3s;
+    }
+    .social-icons a:hover {
+      color: var(--primary-color);
+      transform: translateY(-5px);
+    }
+
+    /* Main Content */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .section {
+      margin: 50px 0;
+      padding: 40px;
+      background: var(--card-bg-light);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border: 1px solid var(--border-light);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out, background 0.4s ease, border 0.4s ease;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--secondary-color);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    ul { list-style: none; padding-left: 0;}
+    ul li { margin-bottom: 12px; font-size: 1.05rem; }
+    
+    a { color: var(--primary-color); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Skills Section */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+    .skill-badge {
+      background-color: #a4bfe6;
+      color: var(--secondary-color);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 15px;
+      border: 1px solid #063cde;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .skill-badge:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    }
+    
+    /* Project & Internship Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+    .card {
+      background: #a8a8be;
+      border: 1px solid var(--border-light);
+      padding: 25px;
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+        font-size: 1.25rem;
+        color: var(--secondary-color);
+        margin-bottom: 10px;
+    }
+    .card p {
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+    .card .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+    .card .tech-stack span {
+        font-size: 12px;
+        background: #e9ecef;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-weight: 500;
+    }
+    .card .project-links a {
+        margin-right: 15px;
+        font-weight: 600;
+    }
+
+    /* Certificate Grid */
+    .certificate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+    }
+    .certificate-item {
+      text-align: center;
+      padding: 15px;
+      border-radius: 12px;
+      background: #8d9dc6;
+      border: 1px solid #6c7a91;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .certificate-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    .certificate-item img {
+      width: 100%;
+      height: 140px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .certificate-item p {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: var(--secondary-color);
+      color: #a0aec0;
+      margin-top: 60px;
+    }
+
+    /* --- Dark Mode --- */
+    body.dark {
+      background: var(--background-dark);
+      color: var(--text-dark);
+    }
+    body.dark .navbar {
+      background: rgba(30, 30, 30, 0.7);
+      border-bottom-color: var(--border-dark);
+    }
+    body.dark .nav-logo a,
+    body.dark .nav-links li a,
+    body.dark .menu-toggle {
+        color: var(--text-dark);
+    }
+    body.dark .nav-links li a:hover,
+    body.dark .nav-links li a.active {
+      color: var(--primary-color);
+    }
+    body.dark header { background: linear-gradient(135deg, #181818, #121212); }
+    body.dark .section {
+      background: var(--card-bg-dark);
+      border-color: var(--border-dark);
+    }
+    body.dark h2, body.dark .card h3, body.dark .certificate-item p { color: #f1f1f1; }
+    body.dark .skill-badge {
+        background-color: var(--secondary-dark);
+        color: var(--text-dark);
+        border-color: #444;
+    }
+    body.dark .card { background: var(--secondary-dark); border-color: var(--border-dark); }
+    body.dark .card .tech-stack span { background-color: #333; }
+    body.dark .certificate-item { background: var(--secondary-dark); border-color: #444; }
+    body.dark footer { background: #181818; }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; z-index: 1001;}
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: var(--card-bg-light);
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+      }
+      .nav-links.active {
+        right: 0;
+      }
+      body.dark .nav-links { background: var(--card-bg-dark); }
+      header h1 { font-size: 2.5rem; }
+      .section { padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-logo">
+      <a href="#">Premkumar Pawar.</a>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about" class="nav-item">About</a></li>
+    <li><a href="#skills" class="nav-item">Skills</a></li>
+    <li><a href="#projects" class="nav-item">Projects</a></li>
+    <li><a href="#internships" class="nav-item">Internships</a></li>
+    <li><a href="#certificates" class="nav-item">Certificates</a></li>
+    <li><a href="#contact" class="nav-item">Contact</a></li>
+    <li><button id="toggle-dark" aria-label="Toggle dark mode">🌙</button></li>
+  </ul>
+  <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+    <i class="fas fa-bars"></i>
+  </button>
+</nav>
+
+<!-- Header -->
+<header>
+  <img src="images/Untitled design.png" alt="Profile photo of Premkumar Pawar">
+  <h1>Premkumar Pawar</h1>
+  <p>Passionate Learner & Aspiring Developer</p>
+  <h3><span id="typing-text"></span><span class="cursor">|</span></h3>
+  <div class="social-icons">
+    <a href="https://www.linkedin.com/in/premkumar-pawar-41a441256/" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+   <a href="https://github.com/premkumarpawar" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+
+  </div>
+</header>
+
+<div class="container">
+    <!-- About Section -->
+    <section class="section" id="about">
+      <h2>About Me</h2>
+      <p style="text-align:center; max-width: 700px; margin: 0 auto; line-height: 1.8;">
+        I am a dedicated and passionate web developer with a strong foundation in building responsive and interactive web applications. My journey through my B.Sc. in Computer Science has equipped me with a robust understanding of both front-end and back-end technologies. I thrive on learning new skills and applying them to create elegant and efficient solutions to real-world problems.
+      </p>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+      <h2>My Skillset</h2>
+      <div class="skills-container">
+        <span class="skill-badge">Java</span>
+        <span class="skill-badge">Python</span>
+        <span class="skill-badge">JavaScript</span>
+        <span class="skill-badge">C++</span>
+        <span class="skill-badge">HTML5</span>
+        <span class="skill-badge">CSS3</span>
+        <span class="skill-badge">Bootstrap</span>
+        <span class="skill-badge">PHP</span>
+        <span class="skill-badge">MySQL</span>
+        <span class="skill-badge">Git & GitHub</span>
+        <span class="skill-badge">VS Code</span>
+        <span class="skill-badge">Leadership</span>
+        <span class="skill-badge">Teamwork</span>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+      <h2>Featured Projects</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Mobile Selling Web App</h3>
+          <p>A full-featured e-commerce platform for buying and selling mobile phones, with separate interfaces for administrators and users.</p>
+          <div class="tech-stack"><span>PHP</span><span>MySQL</span><span>HTML</span><span>CSS</span></div>
+          <div class="project-links"><a href="#0" target="_blank">Live Demo <i class="fas fa-external-link-alt"></i></a> <a href="#0" target="_blank">GitHub <i class="fab fa-github"></i></a></div>
+        </div>
+        <div class="card">
+          <h3>Student Management System</h3>
+          <p>A desktop application built with JavaFX to efficiently manage student records, including adding, updating, and deleting information.</p>
+          <div class="tech-stack"><span>Java</span><span>JavaFX</span><span>SceneBuilder</span></div>
+          <div class="project-links"><a href="#0" target="_blank">GitHub <i class="fab fa-github"></i></a></div>
+        </div>
+        <div class="card">
+          <h3>Electricity Billing System</h3>
+          <p>A robust billing software developed using Java and MySQL to automate the process of generating and managing electricity bills for consumers.</p>
+          <div class="tech-stack"><span>Java</span><span>MySQL</span><span>Swing</span></div>
+          <div class="project-links"><a href="#0" target="_blank">GitHub <i class="fab fa-github"></i></a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Internships Section -->
+    <section class="section" id="internships">
+      <h2>Professional Experience</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Full Stack Intern</h3>
+          <p><strong>Vibrant Minds, Pune</strong> (Jun – Nov 2024)<br>Contributed to developing and maintaining web applications, gaining hands-on experience with the full development lifecycle.</p>
+        </div>
+        <div class="card">
+          <h3>Full Stack Intern</h3>
+          <p><strong>Cognifyz Tech, Nagpur</strong> (Nov 2024)<br>Worked on various tasks involving both front-end and back-end technologies, enhancing my problem-solving and coding skills.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Education Section -->
+    <section class="section" id="education">
+      <h2>Education</h2>
+       <ul>
+        <li><strong>B.Sc. Computer Science</strong> – Mooli Jaitha College, Jalgaon (2021–2024)</li>
+        <li><strong>HSC (Science)</strong> – Indirabai Lalwani High School, Jamner (2021)</li>
+        <li><strong>SSC</strong> – Indirabai Lalwani High School, Jamner (2019)</li>
+      </ul>
+    </section>
+
+    <!-- Certificates Section -->
+    <section class="section" id="certificates">
+      <h2>Certificates & Achievements</h2>
+      <div class="certificate-grid">
+        <div class="certificate-item"><img src="ceritificates/greatlearnig java.png" alt="Great Learning Java Certificate"><p>Java Programming</p></div>
+        <div class="certificate-item"><img src="ceritificates/java youtube.png" alt="YouTube Java Certificate"><p>Core Java</p></div>
+        <div class="certificate-item"><img src="ceritificates/javabasichackerrank.jpg.png" alt="HackerRank Java Basic Certificate"><p>Java (Basic)</p></div>
+        <div class="certificate-item"><img src="ceritificates/js essentisls 1 badege4.png" alt="JavaScript Essentials Badge"><p>JS Essentials</p></div>
+        <div class="certificate-item"><img src="ceritificates/kaggle intropython.png" alt="Kaggle Python Certificate"><p>Intro to Python</p></div>
+        <div class="certificate-item"><img src="ceritificates/midluste.jpg.png" alt="MindLuster Java Certificate"><p>Java Fundamentals</p></div>
+        <div class="certificate-item"><img src="ceritificates/tcsion0.png" alt="TCS iON Certificate"><p>TCS iON Career Edge</p></div>
+      </div>
+    </section>
+<!-- Contact Section -->
+<section class="section" id="contact">
+  <h2>Get In Touch</h2>
+  <p style="text-align: center; max-width: 600px; margin: -10px auto 30px;">
+    I'm currently open to exciting new opportunities! Whether you want to collaborate, have a question, or just want to connect—feel free to reach out!
+  </p>
+  <div style="text-align: center; font-size: 1.1rem; line-height: 2.2;">
+    <p>
+      <i class="fas fa-envelope"></i> 
+      <strong>Email:</strong> 
+      <a href="mailto:prempawar3578@gmail.com" target="_blank">prempawar3578@gmail.com</a>
+    </p>
+    <p>
+      <i class="fab fa-linkedin"></i> 
+      <strong>LinkedIn:</strong> 
+      <a href="https://www.linkedin.com/in/premkumar-pawar-41a441256/" target="_blank">
+        linkedin.com/in/premkumar-pawar
+      </a>
+    </p>
+    <p>
+      <i class="fab fa-github"></i> 
+      <strong>GitHub:</strong> 
+      <a href="https://github.com/premkumarpawar" target="_blank">
+        github.com/premkumarpawar
+      </a>
+    </p>
+  </div>
+</section>
+
+
+</div>
+
+<footer>
+  <p>© <span id="year"></span> Premkumar Pawar | All rights reserved</p>
+</footer>
+
+<!-- JS -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // --- Typing Effect ---
+  const roles = ["Frontend Developer", "Full Stack Developer", "Java Programmer", "Tech Enthusiast"];
+  let currentRole = 0, charIndex = 0, isTyping = true;
+  const typingTextElement = document.getElementById("typing-text");
+
+  function typeEffect() {
+    if (!typingTextElement) return;
+    const currentRoleText = roles[currentRole];
+    if (isTyping) {
+      if (charIndex < currentRoleText.length) {
+        typingTextElement.textContent += currentRoleText.charAt(charIndex++);
+        setTimeout(typeEffect, 100);
+      } else {
+        isTyping = false;
+        setTimeout(typeEffect, 2000);
+      }
+    } else {
+      if (charIndex > 0) {
+        typingTextElement.textContent = currentRoleText.substring(0, --charIndex);
+        setTimeout(typeEffect, 50);
+      } else {
+        isTyping = true;
+        currentRole = (currentRole + 1) % roles.length;
+        setTimeout(typeEffect, 500);
+      }
+    }
+  }
+  typeEffect();
+
+  // --- Dark Mode Toggle ---
+  const toggleDarkBtn = document.getElementById('toggle-dark');
+  toggleDarkBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    // Optional: Save preference to localStorage
+    if (document.body.classList.contains('dark')) {
+      localStorage.setItem('theme', 'dark');
+    } else {
+      localStorage.setItem('theme', 'light');
+    }
+  });
+
+  // Check for saved theme preference
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+  }
+
+  // --- Mobile Menu ---
+  const menuToggle = document.getElementById("menu-toggle");
+  const navLinks = document.getElementById("nav-links");
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+  
+  // Close mobile menu when a link is clicked
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      if(navLinks.classList.contains('active')){
+         navLinks.classList.remove('active');
+      }
+    });
+  });
+
+  // --- Animate Sections on Scroll ---
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+
+  // --- Active Nav Link on Scroll ---
+  const navItems = document.querySelectorAll('.nav-item');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (pageYOffset >= sectionTop - 150) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href').substring(1) === current) {
+        item.classList.add('active');
+      }
+    });
+  });
+
+  // --- Dynamic Copyright Year ---
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+});
+</script>
+</body>
+</html>
